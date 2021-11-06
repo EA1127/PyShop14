@@ -17,6 +17,7 @@ class Category(models.Model):
             return f'{self.parent} --> {self.title}'
         return self.title
 
+
 class Product(models.Model):
     STATUS_CHOICES = (
         ('in stock', 'In stock'),
@@ -31,6 +32,9 @@ class Product(models.Model):
     image = models.ImageField(upload_to='prod_images')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
 
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('detail', kwargs={'product_id': self.pk})
 
     def __str__(self):
         return self.name
