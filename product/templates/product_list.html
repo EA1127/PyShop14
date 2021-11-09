@@ -8,11 +8,13 @@
                 <img style="width: 500px; height: auto" src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
               </div>
               <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title"><a href="{% url 'detail' product.id %}">{{ product.name }}</a></h5>
-                  <p class="card-text">{{ product.description|truncatechars:100 }}</p>
-                  <p class="card-text"><small class="text-muted">{{ product.status }}</small></p>
-                </div>
+                    <div class="card-body">
+                        <h5 class="card-title"><a href="{% url 'detail' product.id %}">{{ product.name }}</a></h5>
+                        <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                        <p class="card-text"><small class="text-muted">{{ product.status }}</small></p>
+                        <a href="{% url 'cart_add' product.id %}" role="button" class="btn btn-primary">ADD TO CART</a>
+                    </div>
+              </div>
               </div>
             </div>
         </div>

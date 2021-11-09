@@ -1,6 +1,18 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+
+
+def send_welcome_email(email):
+    message = f'Thanks for registration in our site PyShop14!'
+    send_mail(
+        'PyShop14 Welcome!',
+        message,
+        'pyshopadmin@gmail.com',
+        [email],
+        fail_silently=False
+    )
 
 
 class RegistrationForm(forms.ModelForm):
@@ -25,3 +37,7 @@ class RegistrationForm(forms.ModelForm):
             raise forms.ValidationError('Passwords do not match')
         return data
 
+    def save(self, commit=True):
+        user = User.objects.create_user(**self.cleaned_data)
+        send_welcome_email(user.email)
+        return user
